@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Mickaël Rakotoarimanantsoa | Étudiant en informatique</title>
+    <meta
+      name="description"
+      content="Portfolio de Mickaël, étudiant en informatique à l'INSI Antananarivo. Développement web, interfaces modernes, Docker, Figma et IA."
+    />
+    
+    <meta name="author" content="Mickaël" />
+    <meta name="theme-color" content="#f5f4f0" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#0b0b0d" media="(prefers-color-scheme: dark)" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Mickaël Rakotoarimanantsoa | Étudiant en informatique" />
+    <meta
+      property="og:description"
+      content="Portfolio de Mickaël : projets, parcours et compétences."
+    />
+    <meta property="og:image" content="/image/mickey.jpg" />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <script>
+      (function () {
+        try {
+          var t = localStorage.getItem("theme");
+          var prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+          if (t === "dark" || (!t && prefersDark)) {
+            document.documentElement.classList.add("dark");
+          }
+        } catch (e) {
+          document.documentElement.classList.add("dark");
+        }
+      })();
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
