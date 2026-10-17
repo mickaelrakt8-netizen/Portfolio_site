@@ -16,12 +16,13 @@ interface DockProps extends ComponentProps<typeof motion.div> {
   children: ReactNode;
   magnification?: number;
   distance?: number;
+  compact?: boolean;
 }
 
 interface DockIconProps {
   className?: string;
   children?: ReactNode;
-  label?: string;   
+  label?: string;
   active?: boolean;
 }
 
@@ -45,28 +46,25 @@ export function Dock({
   children,
   magnification = DEFAULT_MAGNIFICATION,
   distance = DEFAULT_DISTANCE,
+  compact = false,
   style,
   ...props
 }: DockProps) {
   const mouseX = useMotionValue(Infinity);
   const { scrollYProgress } = useScroll();
 
-  const dynamicWidth = useTransform(scrollYProgress, [0, 1], ["65vw", "52rem"]);
-  const dynamicGap = useTransform(scrollYProgress, [0, 1], ["32px", "12px"]);
-  const dynamicPadding = useTransform(scrollYProgress, [0, 1], ["2.5rem", "1.25rem"]);
-
   return (
     <DockContext.Provider value={{ mouseX, magnification, distance }}>
       <motion.div
         onMouseMove={(e) => mouseX.set(e.clientX)}
         onMouseLeave={() => mouseX.set(Infinity)}
-        style={{
-          width: dynamicWidth,
-          gap: dynamicGap,
-          paddingLeft: dynamicPadding,
-          paddingRight: dynamicPadding,
-          ...style,
+        animate={{
+          width: compact ? "34rem" : "65vw",
+          paddingLeft: compact ? "1.25rem" : "2.5rem",
+          paddingRight: compact ? "1.25rem" : "2.5rem",
         }}
+        transition={{ type: "spring", stiffness: 260, damping: 28 }}
+        style={style}
         {...props}
         className={cn(
           "relative mx-auto flex h-14 sm:h-16 min-w-fit max-w-[96vw] transform-gpu items-center justify-center rounded-full border border-[color:var(--line)] bg-[color-mix(in_srgb,var(--bg)_72%,transparent)] backdrop-blur-md will-change-[width] transition-colors duration-500",
@@ -75,7 +73,6 @@ export function Dock({
       >
         {children}
 
-        {/* Barre de progression de lecture : une seule couleur */}
         <motion.div
           style={{ scaleX: scrollYProgress, originX: 0 }}
           className="pointer-events-none absolute bottom-0 left-8 right-8 h-px bg-[var(--accent)]"
@@ -130,7 +127,6 @@ export function DockIcon({ className, children, label, active }: DockIconProps) 
         {children}
       </motion.div>
 
-      {/* Point "section active" */}
       {active && (
         <motion.span
           layoutId="nav-active-dot"
@@ -138,7 +134,6 @@ export function DockIcon({ className, children, label, active }: DockIconProps) 
           className="absolute -bottom-2 h-1 w-1 rounded-full bg-[var(--accent)]"
         />
       )}
-
 
       {label && (
         <span className="pointer-events-none absolute top-full mt-4 translate-y-1 whitespace-nowrap rounded-full bg-[var(--fg)] px-3 py-1 font-mono text-[10px] uppercase tracking-[0.2em] text-[color:var(--bg)] opacity-0 transition-all duration-200 group-hover:translate-y-0 group-hover:opacity-100">

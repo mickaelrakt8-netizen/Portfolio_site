@@ -78,7 +78,7 @@ interface NavItem {
 const navItems: NavItem[] = [
   { id: "home", label: "Accueil", icon: Home },
   { id: "projects", label: "Compétences", icon: Briefcase, hide: "scroll" },
-  { id: "realisations", label: "Projets", icon: Layers, hide: "bottom" },
+  { id: "realisations", label: "Projets", icon: Layers, hide: "scroll" },
   { id: "parcours", label: "Parcours", icon: GraduationCap },
   { id: "contact", label: "Contact", icon: Mail },
 ];
@@ -112,18 +112,12 @@ function useActiveSection(ids: string[]) {
 export default function Navbar() {
   const activeSection = useActiveSection(sectionIds);
 
-  const { scrollY, scrollYProgress } = useScroll();
+  const { scrollY } = useScroll();
   const [scrolled, setScrolled] = useState(false);
-  const [atBottom, setAtBottom] = useState(false);
 
+  // Seuil à deux niveaux : se raccourcit dès 30 px, revient sous 10 px
   useMotionValueEvent(scrollY, "change", (latest) => {
-    const next = latest > 80;
-    setScrolled((prev) => (prev === next ? prev : next));
-  });
-
-  useMotionValueEvent(scrollYProgress, "change", (latest) => {
-    const next = latest > 0.9;
-    setAtBottom((prev) => (prev === next ? prev : next));
+    setScrolled((prev) => (prev ? latest > 10 : latest > 30));
   });
 
   return (
@@ -133,7 +127,7 @@ export default function Navbar() {
       transition={{ type: "spring", stiffness: 120, damping: 18, delay: 2.8 }}
       className="pointer-events-none fixed inset-x-0 top-3 z-[9999] flex justify-center will-change-transform sm:top-4"
     >
-      <Dock className="pointer-events-auto">
+      <Dock className="pointer-events-auto" compact={scrolled}>
         <div className="flex h-full w-full items-center justify-between">
 
           <div className="hidden flex-1 items-center justify-start md:flex">
@@ -147,11 +141,7 @@ export default function Navbar() {
           <div className="flex items-center justify-center gap-1 sm:gap-2 md:gap-3">
             <AnimatePresence initial={false}>
               {navItems
-                .filter(
-                  (item) =>
-                    !(item.hide === "scroll" && scrolled) &&
-                    !(item.hide === "bottom" && atBottom)
-                )
+                .filter((item) => !(item.hide && scrolled))
                 .map(({ id, label, icon: Icon }) => (
                   <motion.a
                     key={id}
@@ -161,7 +151,7 @@ export default function Navbar() {
                     initial={{ opacity: 0, scale: 0.4, width: 0 }}
                     animate={{ opacity: 1, scale: 1, width: "auto" }}
                     exit={{ opacity: 0, scale: 0.4, width: 0 }}
-                    transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+                    transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
                     className="flex items-center justify-center"
                   >
                     <DockIcon label={label} active={activeSection === id}>
