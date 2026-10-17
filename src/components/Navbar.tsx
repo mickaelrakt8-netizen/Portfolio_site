@@ -8,6 +8,7 @@ import { Dock, DockIcon } from "./magicui/dock";
 import { ModeToggle } from "./mode-toggle";
 import { Icons } from "./icons";
 
+
 function AnimatedLogo() {
   const d =
     "M10 78C15 50 24 17 36 11C48 5 57 28 66 50C75 72 82 87 91 84C103 80 108 50 103 25C100 10 92 5 84 10C78 14 74 22 70 29";
@@ -28,6 +29,7 @@ function AnimatedLogo() {
       animate={{ rotate: [0, 5, -5, 0], scale: [1, 1.06, 1] }}
       transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
     >
+
       <motion.path
         d={d}
         className="stroke-[color:var(--muted)]"
@@ -41,6 +43,7 @@ function AnimatedLogo() {
         style={{ transformBox: "fill-box", transformOrigin: "center" }}
       />
 
+
       <motion.path
         d={d}
         className="stroke-[color:var(--accent)]"
@@ -52,6 +55,7 @@ function AnimatedLogo() {
         transition={{ pathOffset: { duration: 2.4, repeat: Infinity, ease: "linear" } }}
         style={{ transformBox: "fill-box", transformOrigin: "center" }}
       />
+
 
       <motion.path
         d={d}
@@ -78,7 +82,7 @@ interface NavItem {
 const navItems: NavItem[] = [
   { id: "home", label: "Accueil", icon: Home },
   { id: "projects", label: "Compétences", icon: Briefcase, hide: "scroll" },
-  { id: "realisations", label: "Projets", icon: Layers, hide: "scroll" },
+  { id: "realisations", label: "Projets", icon: Layers, hide: "bottom" },
   { id: "parcours", label: "Parcours", icon: GraduationCap },
   { id: "contact", label: "Contact", icon: Mail },
 ];
@@ -112,12 +116,18 @@ function useActiveSection(ids: string[]) {
 export default function Navbar() {
   const activeSection = useActiveSection(sectionIds);
 
-  const { scrollY } = useScroll();
+  const { scrollY, scrollYProgress } = useScroll();
   const [scrolled, setScrolled] = useState(false);
+  const [atBottom, setAtBottom] = useState(false);
 
-  // Seuil à deux niveaux : se raccourcit dès 30 px, revient sous 10 px
   useMotionValueEvent(scrollY, "change", (latest) => {
-    setScrolled((prev) => (prev ? latest > 10 : latest > 30));
+    const next = latest > 80;
+    setScrolled((prev) => (prev === next ? prev : next));
+  });
+
+  useMotionValueEvent(scrollYProgress, "change", (latest) => {
+    const next = latest > 0.9;
+    setAtBottom((prev) => (prev === next ? prev : next));
   });
 
   return (
@@ -125,10 +135,11 @@ export default function Navbar() {
       initial={{ y: -100, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ type: "spring", stiffness: 120, damping: 18, delay: 2.8 }}
-      className="pointer-events-none fixed inset-x-0 top-3 z-[9999] flex justify-center will-change-transform sm:top-4"
+      className="pointer-events-none fixed inset-x-0 top-6 z-[9999] flex justify-center will-change-transform"
     >
-      <Dock className="pointer-events-auto" compact={scrolled}>
+      <Dock className="pointer-events-auto">
         <div className="flex h-full w-full items-center justify-between">
+
 
           <div className="hidden flex-1 items-center justify-start md:flex">
             <a href="#home" aria-label="Accueil" className="flex items-center justify-center">
@@ -138,10 +149,14 @@ export default function Navbar() {
             </a>
           </div>
 
-          <div className="flex items-center justify-center gap-1 sm:gap-2 md:gap-3">
+          <div className="flex items-center justify-center gap-2 sm:gap-3 md:gap-4">
             <AnimatePresence initial={false}>
               {navItems
-                .filter((item) => !(item.hide && scrolled))
+                .filter(
+                  (item) =>
+                    !(item.hide === "scroll" && scrolled) &&
+                    !(item.hide === "bottom" && atBottom)
+                )
                 .map(({ id, label, icon: Icon }) => (
                   <motion.a
                     key={id}
@@ -151,7 +166,7 @@ export default function Navbar() {
                     initial={{ opacity: 0, scale: 0.4, width: 0 }}
                     animate={{ opacity: 1, scale: 1, width: "auto" }}
                     exit={{ opacity: 0, scale: 0.4, width: 0 }}
-                    transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+                    transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
                     className="flex items-center justify-center"
                   >
                     <DockIcon label={label} active={activeSection === id}>
@@ -161,7 +176,7 @@ export default function Navbar() {
                 ))}
             </AnimatePresence>
 
-            <div className="hidden h-5 w-px self-center bg-[var(--line)] md:block" />
+            <div className="hidden h-6 w-px self-center bg-[var(--line)] md:block" />
 
             <a
               href="https://www.facebook.com/share/1D6qHM2DkN/"
@@ -200,7 +215,7 @@ export default function Navbar() {
             </a>
           </div>
 
-          <div className="flex flex-1 items-center justify-end gap-1 sm:gap-2 md:gap-3">
+          <div className="flex flex-1 items-center justify-end gap-2 sm:gap-3 md:gap-4">
             <a
               href="/cv/CV_etudiant.pdf"
               download
