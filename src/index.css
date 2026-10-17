@@ -64,3 +64,13 @@ a {
   html { scroll-behavior: auto; }
   * { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
 }
+
+html {
+  font-size: 87.5%;
+}
+
+@media (max-width: 640px) {
+  html {
+    font-size: 78%; 
+  }
+}

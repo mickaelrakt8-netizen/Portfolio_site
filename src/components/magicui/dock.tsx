@@ -25,10 +25,10 @@ interface DockIconProps {
   active?: boolean;
 }
 
-const DEFAULT_MAGNIFICATION = 96;
-const DEFAULT_DISTANCE = 140;
-const BASE_SIZE = 64;
-const BASE_ICON_SIZE = 32;
+const DEFAULT_MAGNIFICATION = 72;
+const DEFAULT_DISTANCE = 110;
+const BASE_SIZE = 46;
+const BASE_ICON_SIZE = 24;
 const ICON_SIZE_RATIO = 0.55;
 const SPRING = { mass: 0.1, stiffness: 150, damping: 12 };
 
@@ -69,7 +69,7 @@ export function Dock({
         }}
         {...props}
         className={cn(
-          "relative mx-auto flex h-20 min-w-fit max-w-[96vw] transform-gpu items-center justify-center rounded-full border border-[color:var(--line)] bg-[color-mix(in_srgb,var(--bg)_72%,transparent)] backdrop-blur-md will-change-[width] transition-colors duration-500",
+          "relative mx-auto flex h-14 sm:h-16 min-w-fit max-w-[96vw] transform-gpu items-center justify-center rounded-full border border-[color:var(--line)] bg-[color-mix(in_srgb,var(--bg)_72%,transparent)] backdrop-blur-md will-change-[width] transition-colors duration-500",
           className
         )}
       >

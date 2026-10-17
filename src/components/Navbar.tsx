@@ -8,7 +8,6 @@ import { Dock, DockIcon } from "./magicui/dock";
 import { ModeToggle } from "./mode-toggle";
 import { Icons } from "./icons";
 
-
 function AnimatedLogo() {
   const d =
     "M10 78C15 50 24 17 36 11C48 5 57 28 66 50C75 72 82 87 91 84C103 80 108 50 103 25C100 10 92 5 84 10C78 14 74 22 70 29";
@@ -29,7 +28,6 @@ function AnimatedLogo() {
       animate={{ rotate: [0, 5, -5, 0], scale: [1, 1.06, 1] }}
       transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
     >
-
       <motion.path
         d={d}
         className="stroke-[color:var(--muted)]"
@@ -43,7 +41,6 @@ function AnimatedLogo() {
         style={{ transformBox: "fill-box", transformOrigin: "center" }}
       />
 
-
       <motion.path
         d={d}
         className="stroke-[color:var(--accent)]"
@@ -55,7 +52,6 @@ function AnimatedLogo() {
         transition={{ pathOffset: { duration: 2.4, repeat: Infinity, ease: "linear" } }}
         style={{ transformBox: "fill-box", transformOrigin: "center" }}
       />
-
 
       <motion.path
         d={d}
@@ -135,11 +131,10 @@ export default function Navbar() {
       initial={{ y: -100, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ type: "spring", stiffness: 120, damping: 18, delay: 2.8 }}
-      className="pointer-events-none fixed inset-x-0 top-6 z-[9999] flex justify-center will-change-transform"
+      className="pointer-events-none fixed inset-x-0 top-3 z-[9999] flex justify-center will-change-transform sm:top-4"
     >
       <Dock className="pointer-events-auto">
         <div className="flex h-full w-full items-center justify-between">
-
 
           <div className="hidden flex-1 items-center justify-start md:flex">
             <a href="#home" aria-label="Accueil" className="flex items-center justify-center">
@@ -149,7 +144,7 @@ export default function Navbar() {
             </a>
           </div>
 
-          <div className="flex items-center justify-center gap-2 sm:gap-3 md:gap-4">
+          <div className="flex items-center justify-center gap-1 sm:gap-2 md:gap-3">
             <AnimatePresence initial={false}>
               {navItems
                 .filter(
@@ -176,7 +171,7 @@ export default function Navbar() {
                 ))}
             </AnimatePresence>
 
-            <div className="hidden h-6 w-px self-center bg-[var(--line)] md:block" />
+            <div className="hidden h-5 w-px self-center bg-[var(--line)] md:block" />
 
             <a
               href="https://www.facebook.com/share/1D6qHM2DkN/"
@@ -215,7 +210,7 @@ export default function Navbar() {
             </a>
           </div>
 
-          <div className="flex flex-1 items-center justify-end gap-2 sm:gap-3 md:gap-4">
+          <div className="flex flex-1 items-center justify-end gap-1 sm:gap-2 md:gap-3">
             <a
               href="/cv/CV_etudiant.pdf"
               download
