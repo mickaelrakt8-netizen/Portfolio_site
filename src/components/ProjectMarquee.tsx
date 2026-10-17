@@ -12,9 +12,9 @@ import {
 interface Skill {
   id: number;
   title: string;
-  image?: string;
-  video?: string;
-  visual?: ReactNode;
+  image?: string; 
+  video?: string; 
+  visual?: ReactNode; 
   link: string;
   subtitle: string;
   description: string;
@@ -22,6 +22,9 @@ interface Skill {
 
 const EASE = [0.16, 1, 0.3, 1] as const;
 
+/* ---------------- Données ----------------
+   Pour remplacer une animation par une vraie vidéo, remplace `visual`
+   par `video: "/projects/ton-fichier.mp4"`. */
 const skills: Skill[] = [
   {
     id: 2,
@@ -82,6 +85,7 @@ const skills: Skill[] = [
 const DEFAULT_DESCRIPTION =
   "Les technologies et outils que j'apprends et que j'utilise dans mes projets.";
 
+/* Texte qui s'écrit lettre par lettre, avec le même curseur que « Mickaël » */
 function TypedText({ text }: { text: string }) {
   const [typed, setTyped] = useState("");
   const [done, setDone] = useState(false);
@@ -114,6 +118,7 @@ function TypedText({ text }: { text: string }) {
 export default function ProjectMarquee() {
   const [activeItem, setActiveItem] = useState<Skill | null>(null);
 
+
   const mouseX = useMotionValue(-500);
   const mouseY = useMotionValue(-500);
   const smoothMouseX = useSpring(mouseX, { stiffness: 140, damping: 24 });
@@ -145,7 +150,7 @@ export default function ProjectMarquee() {
       id="projects"
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
-      className="relative flex min-h-screen w-full flex-col items-center justify-start overflow-hidden bg-[var(--bg)] px-4 py-16 text-[color:var(--fg)] transition-colors duration-500 sm:px-6 sm:py-20"
+      className="relative flex min-h-screen w-full flex-col items-center justify-start overflow-hidden bg-[var(--bg)] px-6 py-20 text-[color:var(--fg)] transition-colors duration-500"
     >
       <div
         aria-hidden="true"
@@ -173,7 +178,7 @@ export default function ProjectMarquee() {
         />
       </div>
 
-      <div className="relative z-50 mb-8 flex w-full max-w-5xl cursor-default select-none items-center gap-4 sm:gap-8">
+      <div className="relative z-50 mb-10 flex w-full max-w-5xl cursor-default select-none items-center gap-5 sm:gap-8">
         <motion.div
           initial={{ scaleX: 0 }}
           whileInView={{ scaleX: 1 }}
@@ -189,7 +194,7 @@ export default function ProjectMarquee() {
             whileInView={{ y: "0%" }}
             viewport={{ once: true }}
             transition={{ duration: 1, delay: 0.25, ease: EASE }}
-            className="font-['Moga',Impact,sans-serif] text-base font-medium uppercase tracking-[0.2em] text-[color:var(--fg)] sm:text-xl"
+            className="font-['Moga',Impact,sans-serif] text-xl font-medium uppercase tracking-[0.2em] text-[color:var(--fg)] sm:text-2xl"
           >
             Compétences
           </motion.h3>
@@ -211,7 +216,7 @@ export default function ProjectMarquee() {
         viewport={{ once: true, amount: 0.3 }}
         transition={{ duration: 1.1, delay: 0.2, ease: EASE }}
         onMouseLeave={() => setActiveItem(null)}
-        className="relative z-15 flex h-48 w-full flex-nowrap items-center justify-start gap-3 overflow-x-auto overflow-y-visible px-4 [scrollbar-width:none] sm:h-60 sm:justify-center sm:gap-5 [&::-webkit-scrollbar]:hidden"
+        className="relative z-15 flex h-60 w-full flex-nowrap items-center justify-start gap-4 overflow-x-auto overflow-y-visible px-6 [scrollbar-width:none] sm:h-72 sm:justify-center sm:gap-6 [&::-webkit-scrollbar]:hidden"
       >
         {skills.map((item) => {
           const isActive = activeItem?.id === item.id;
@@ -227,8 +232,8 @@ export default function ProjectMarquee() {
                 item.link !== "#" ? "cursor-pointer" : "cursor-default"
               } ${
                 isActive
-                  ? "w-36 h-36 sm:w-48 sm:h-48 rounded-2xl opacity-100 shadow-2xl z-20"
-                  : "w-24 h-24 sm:w-32 sm:h-32 rounded-xl opacity-90 dark:opacity-70 hover:opacity-100 shadow-md"
+                  ? "w-48 h-48 sm:w-60 sm:h-60 rounded-2xl opacity-100 shadow-2xl z-20"
+                  : "w-32 h-32 sm:w-40 sm:h-40 rounded-xl opacity-90 dark:opacity-70 hover:opacity-100 shadow-md"
               }`}
             >
               {item.video ? (
@@ -257,7 +262,7 @@ export default function ProjectMarquee() {
         })}
       </motion.div>
 
-      <div className="relative z-15 mt-8 flex w-full flex-col items-center text-center sm:mt-10">
+      <div className="relative z-15 mt-12 flex w-full flex-col items-center text-center">
         <AnimatePresence mode="wait">
           <motion.div
             key={activeItem ? activeItem.id : "all-skills"}
@@ -266,12 +271,12 @@ export default function ProjectMarquee() {
             exit="exit"
             className="flex w-full max-w-[100vw] flex-col items-center px-2"
           >
-            <div className="mb-2 flex min-h-[24px] items-center justify-center gap-4 px-2 font-mono text-[10px] uppercase tracking-[0.15em] text-[color:var(--muted)] sm:text-xs">
+            <div className="mb-3 flex min-h-[28px] items-center justify-center gap-4 font-mono text-xs uppercase tracking-[0.2em] text-[color:var(--muted)] sm:text-sm">
               <span>{activeItem ? activeItem.subtitle : "Stack & savoir-faire"}</span>
             </div>
 
             <h2
-              className={`font-['Kirgina',Impact,'Arial_Narrow',sans-serif] flex w-full select-none justify-center whitespace-nowrap text-[11vw] font-bold uppercase leading-[1.1] tracking-tight transition-colors duration-200 sm:text-[6vw] ${
+              className={`font-['Kirgina',Impact,'Arial_Narrow',sans-serif] flex w-full select-none justify-center whitespace-nowrap text-[15vw] font-bold uppercase leading-[1.1] tracking-tight transition-colors duration-200 sm:text-[7.8vw] ${
                 activeItem ? "text-[color:var(--accent)]" : "text-[color:var(--fg)]"
               }`}
             >
@@ -313,12 +318,13 @@ export default function ProjectMarquee() {
           </motion.div>
         </AnimatePresence>
 
-        <div className="mt-4 flex min-h-[6rem] w-full max-w-2xl items-start justify-center px-4 sm:min-h-[5rem]">
-          <p className="text-center text-sm font-light leading-relaxed tracking-wide text-[color:var(--muted)] sm:text-xl">
+        <div className="mt-5 flex min-h-[6rem] w-full max-w-2xl items-start justify-center px-4 sm:min-h-[5rem]">
+          <p className="text-center text-base font-light leading-relaxed tracking-wide text-[color:var(--muted)] sm:text-2xl">
             <TypedText text={activeItem ? activeItem.description : DEFAULT_DESCRIPTION} />
           </p>
         </div>
       </div>
+
     </section>
   );
 }

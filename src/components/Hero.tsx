@@ -283,12 +283,12 @@ export default function Hero() {
           />
         </motion.div>
 
-        <div className="relative z-10 flex w-full max-w-7xl flex-col-reverse items-center justify-between gap-10 pt-16 lg:flex-row lg:gap-16">
+        <div className="relative z-10 flex w-full max-w-7xl flex-col-reverse items-center justify-between gap-16 pt-16 lg:flex-row">
           <motion.div
             initial={{ opacity: 0, y: 140, scale: 0.7, filter: "blur(18px)" }}
             animate={{ opacity: 1, y: 0, scale: 1, filter: "blur(0px)" }}
             transition={{ duration: 1.8, delay: T + 0.1, ease: EASE }}
-            className="relative flex w-[60vw] max-w-[320px] shrink-0 justify-center lg:max-w-[440px]"
+            className="relative flex w-[85vw] max-w-[500px] shrink-0 justify-center lg:max-w-[550px]"
           >
             <motion.img
               src="/image/micka_3d.png"
@@ -306,7 +306,7 @@ export default function Hero() {
           </motion.div>
 
           <div className="max-w-2xl flex-1 text-center lg:ml-8 lg:text-left">
-            <div className="mb-3 overflow-hidden">
+            <div className="mb-4 overflow-hidden">
               <motion.p
                 initial={{ y: "120%", opacity: 0 }}
                 animate={{ y: "0%", opacity: 1 }}
@@ -321,8 +321,8 @@ export default function Hero() {
               initial={{ opacity: 0, y: 60 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 1.4, delay: T + 0.5, ease: EASE }}
-              className="mb-8 flex items-center justify-center font-extrabold leading-none tracking-tight text-[color:var(--fg)] lg:justify-start"
-              style={{ fontSize: "clamp(2.5rem, 6vw, 5.5rem)" }}
+              className="mb-10 flex items-center justify-center font-extrabold leading-none tracking-tight text-[color:var(--fg)] lg:justify-start"
+              style={{ fontSize: "clamp(3rem, 8vw, 7.5rem)" }}
             >
               <span>{typedName}</span>
               {!isComplete && (
@@ -334,7 +334,7 @@ export default function Hero() {
               initial={{ opacity: 0, x: 60 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 1.2, delay: T + 0.8, ease: EASE }}
-              className="relative mt-4 w-full pl-5 text-left sm:pl-8"
+              className="relative mt-6 w-full pl-6 text-left sm:pl-8"
             >
               <motion.div
                 initial={{ scaleY: 0 }}
@@ -351,12 +351,12 @@ export default function Hero() {
                 className="absolute left-0 top-0 h-10 w-px bg-[var(--accent)]"
               />
 
-              <div className="mb-6 flex items-center gap-4">
+              <div className="mb-8 flex items-center gap-6">
                 <motion.span
                   initial={{ opacity: 0, x: -24 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ duration: 1, delay: T + 1.2, ease: EASE }}
-                  className="font-mono text-xs uppercase tracking-[0.35em] text-[color:var(--accent)] sm:text-sm"
+                  className="font-mono text-sm uppercase tracking-[0.35em] text-[color:var(--accent)] sm:text-base"
                 >
                   À propos
                 </motion.span>
@@ -365,12 +365,12 @@ export default function Hero() {
                   animate={{ scaleX: 1 }}
                   transition={{ duration: 1.4, delay: T + 1.5, ease: EASE }}
                   style={{ originX: 0 }}
-                  className="h-px w-16 bg-[var(--line)] sm:w-32"
+                  className="h-px w-24 bg-[var(--line)] sm:w-40"
                 />
               </div>
 
               <h2
-                className="mb-5 text-2xl font-extrabold uppercase leading-[1.05] tracking-tight sm:text-3xl lg:text-4xl"
+                className="mb-7 text-3xl font-extrabold uppercase leading-[1.05] tracking-tight sm:text-4xl lg:text-5xl"
                 style={{ perspective: 800 }}
               >
                 {[
@@ -402,7 +402,7 @@ export default function Hero() {
                   <p
                     key={`ghost-${i}`}
                     aria-hidden="true"
-                    className="invisible col-start-1 row-start-1 w-full text-sm font-light leading-relaxed tracking-wide sm:text-xl"
+                    className="invisible col-start-1 row-start-1 w-full text-base font-light leading-relaxed tracking-wide sm:text-3xl"
                   >
                     {phrase}
                   </p>
@@ -415,14 +415,14 @@ export default function Hero() {
                     animate={{ opacity: 1, y: 0, clipPath: "inset(0 0 0% 0)" }}
                     exit={{ opacity: 0, y: -24, clipPath: "inset(100% 0 0 0)" }}
                     transition={{ duration: 0.7, ease: EASE }}
-                    className="col-start-1 row-start-1 w-full text-sm font-light leading-relaxed tracking-wide text-[color:var(--muted)] sm:text-xl"
+                    className="col-start-1 row-start-1 w-full text-base font-light leading-relaxed tracking-wide text-[color:var(--muted)] sm:text-3xl"
                   >
                     {renderHighlighted(phrases[currentTextIndex], highlights[currentTextIndex])}
                   </motion.p>
                 </AnimatePresence>
               </motion.div>
 
-              <div className="mt-6 flex flex-wrap gap-2">
+              <div className="mt-8 flex flex-wrap gap-2.5">
                 {aboutTags.map((tag, i) => (
                   <motion.span
                     key={tag}
@@ -430,7 +430,7 @@ export default function Hero() {
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.9, delay: T + 2.4 + i * 0.12, ease: EASE }}
                     whileHover={{ y: -3 }}
-                    className="cursor-default rounded-full border border-[color:var(--line)] px-3 py-1 font-mono text-[10px] uppercase tracking-[0.2em] text-[color:var(--muted)] transition-colors hover:border-[color:var(--accent)] hover:text-[color:var(--accent)] sm:px-4 sm:py-1.5 sm:text-[11px]"
+                    className="cursor-default rounded-full border border-[color:var(--line)] px-4 py-1.5 font-mono text-[11px] uppercase tracking-[0.2em] text-[color:var(--muted)] transition-colors hover:border-[color:var(--accent)] hover:text-[color:var(--accent)]"
                   >
                     {tag}
                   </motion.span>
@@ -444,9 +444,9 @@ export default function Hero() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 1.2, delay: T + 3 }}
-          className="pointer-events-none absolute inset-x-6 bottom-4 z-10 flex items-end justify-between sm:inset-x-10 sm:bottom-6"
+          className="pointer-events-none absolute inset-x-6 bottom-6 z-10 flex items-end justify-between font-mono text-[10px] uppercase tracking-[0.3em] text-[color:var(--muted)] sm:inset-x-10"
         >
-          <span className="font-['Moga',Impact,sans-serif] text-sm tracking-[0.3em] text-[color:var(--muted)] sm:text-base">
+          <span className="font-['Moga',Bold] text-xl text-sm tracking-[0.4em] sm:text-base">
             Portfolio — 2026
           </span>
         </motion.div>
