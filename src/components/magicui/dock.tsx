@@ -51,7 +51,7 @@ export function Dock({
   const mouseX = useMotionValue(Infinity);
   const { scrollYProgress } = useScroll();
 
-  const dynamicWidth = useTransform(scrollYProgress, [0, 1], ["65vw", "52rem"]);
+  const dynamicWidth = useTransform(scrollYProgress, [0, 1], ["65vw", "34rem"]);
   const dynamicGap = useTransform(scrollYProgress, [0, 1], ["32px", "12px"]);
   const dynamicPadding = useTransform(scrollYProgress, [0, 1], ["2.5rem", "1.25rem"]);
 
