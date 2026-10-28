@@ -24,5 +24,4 @@ dist-ssr
 *.sw?
 
 //secret
-public/certificats/
 public/plugins/

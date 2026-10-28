@@ -64,8 +64,7 @@ const stats = [
   { value: 3, label: "Organismes de langues" },
   { value: 15, label: "Le nombres de matieres fini pendant ma premiere annee" },
 ];
-
-/* Chiffre qui compte jusqu'à sa valeur */
+ 
 function Counter({ to }: { to: number }) {
   const ref = useRef<HTMLSpanElement>(null);
   const inView = useInView(ref, { once: true, amount: 0.6 });

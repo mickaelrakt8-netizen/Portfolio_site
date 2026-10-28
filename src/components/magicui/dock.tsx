@@ -27,8 +27,8 @@ interface DockIconProps {
 
 const DEFAULT_MAGNIFICATION = 72;
 const DEFAULT_DISTANCE = 110;
-const BASE_SIZE = 46;
-const BASE_ICON_SIZE = 24;
+const BASE_SIZE = 50;
+const BASE_ICON_SIZE = 26;
 const ICON_SIZE_RATIO = 0.55;
 const SPRING = { mass: 0.1, stiffness: 150, damping: 12 };
 
